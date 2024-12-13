@@ -62,7 +62,7 @@ function App() {
             if (e.target.value ===""){
               setCurrent();
               setForecast();
-              setLocation();
+              setLocation();  
             }
           }}/>
           <label for="floatingInput">Enter City Name</label>
