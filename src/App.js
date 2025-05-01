@@ -12,7 +12,6 @@ function App() {
   const [current, setCurrent] = useState();
   const [forecast, setForecast] = useState();
   const whapi = process.env.REACT_APP_API_URL;
-  console.log(whapi);
   
 
   const autoApi = `https://api.weatherapi.com/v1/search.json?key=${whapi}&q=`;
