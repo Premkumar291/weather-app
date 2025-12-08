@@ -1,100 +1,70 @@
 import React from "react";
 
-const Current = ({current , location}) =>{
+const Current = ({ current, location }) => {
 
-    return(
-        <div>
-           <p className="text-white text-center mt-5 mb-5"> <h4>Real Time Weather Of  {location.name},{location.region},{location.country} </h4></p>
-
-            {/* First Row */}
-
-            <div className="row mb-3">
-
-                {/* column one */}
-
-                <div className="col-3 bg-opacity-10">
-                    <div className="card bg-opacity-10 bg-light" >
-                        <div className="card-title">
-                            <h5 className="text-white text-center pt-3">{current.condition.text}</h5>
-                        </div>
-                    </div>
-                </div>
-
-                {/* column Two */}
-
-                <div className="col-3 bg-opacity-10">
-                    <div className="card bg-opacity-10 bg-light" >
-                        <div className="card-title">
-                            <h5 className="text-white text-center pt-3">Temp in celcius :{current.temp_c}°C</h5>
-                        </div>
-                    </div>
-                </div>
-
-                {/* column three */}
-
-                <div className="col-3 bg-opacity-10">
-                    <div className="card bg-opacity-10 bg-light" >
-                        <div className="card-title">
-                            <h5 className="text-white text-center pt-3">Temp in Farenheit :{current.temp_f}°F</h5>
-                        </div>
-                    </div>
-                </div>
-
-                {/* column four */}
-
-                <div className="col-3 bg-opacity-10 ">
-                    <div className="card bg-opacity-10 bg-light" >
-                        <div className="card-title">
-                            <h5 className="text-white text-center pt-3">Humidity : {current.humidity}%</h5>
-                        </div>
-                    </div>
-                </div>
-
+    return (
+        <div className="fade-in">
+            {/* Section Header */}
+            <div className="section-header">
+                <h4>🌡️ Current Weather - {location.name}, {location.region}, {location.country}</h4>
             </div>
 
+            {/* Weather Grid - Responsive */}
+            <div className="weather-grid">
 
-            {/* Second Row */}
-
-            <div className="row">
-
-                {/* column one */}
-
-                <div className="col-3 bg-opacity-10">
-                    <div className="card bg-opacity-10 bg-light" >
-                        <div className="card-title">
-                            <h5 className="text-white text-center pt-3"> Wind Speed : {current.wind_kph} km/hr</h5>
-                        </div>
-                    </div>
+                {/* Weather Condition Card */}
+                <div className="weather-card featured-card">
+                    <div className="card-icon">☁️</div>
+                    <h5>{current.condition.text}</h5>
                 </div>
 
-                {/* column Two */}
-
-                <div className="col-3 bg-opacity-10">
-                    <div className="card bg-opacity-10 bg-light" >
-                        <div className="card-title">
-                            <h5 className="text-white text-center pt-3">Feels Like:{current.feelslike_c}°C</h5>
-                        </div>
-                    </div>
+                {/* Temperature Celsius Card */}
+                <div className="weather-card">
+                    <div className="card-icon">🌡️</div>
+                    <h5>Temperature</h5>
+                    <h5>{current.temp_c}°C</h5>
                 </div>
 
-                {/* column three */}
-
-                <div className="col-3 bg-opacity-10">
-                    <div className="card bg-opacity-10 bg-light" >
-                        <div className="card-title">
-                            <h5 className="text-white text-center pt-3">Feels like :{current.feelslike_f}°F</h5>
-                        </div>
-                    </div>
+                {/* Temperature Fahrenheit Card */}
+                <div className="weather-card">
+                    <div className="card-icon">🌡️</div>
+                    <h5>Temperature</h5>
+                    <h5>{current.temp_f}°F</h5>
                 </div>
 
-                {/* column four */}
+                {/* Humidity Card */}
+                <div className="weather-card">
+                    <div className="card-icon">💧</div>
+                    <h5>Humidity</h5>
+                    <h5>{current.humidity}%</h5>
+                </div>
 
-                <div className="col-3 bg-opacity-10">
-                    <div className="card bg-opacity-10 bg-light" >
-                        <div className="card-title">
-                            <h5 className="text-white text-center pt-3">Direction of Wind : {current.wind_dir}</h5>
-                        </div>
-                    </div>
+                {/* Wind Speed Card */}
+                <div className="weather-card">
+                    <div className="card-icon">💨</div>
+                    <h5>Wind Speed</h5>
+                    <h5>{current.wind_kph} km/h</h5>
+                </div>
+
+                {/* Feels Like Celsius Card */}
+                <div className="weather-card">
+                    <div className="card-icon">🌡️</div>
+                    <h5>Feels Like</h5>
+                    <h5>{current.feelslike_c}°C</h5>
+                </div>
+
+                {/* Feels Like Fahrenheit Card */}
+                <div className="weather-card">
+                    <div className="card-icon">🌡️</div>
+                    <h5>Feels Like</h5>
+                    <h5>{current.feelslike_f}°F</h5>
+                </div>
+
+                {/* Wind Direction Card */}
+                <div className="weather-card">
+                    <div className="card-icon">🧭</div>
+                    <h5>Wind Direction</h5>
+                    <h5>{current.wind_dir}</h5>
                 </div>
 
             </div>

@@ -11,20 +11,15 @@ function App() {
   const [location, setLocation] = useState();
   const [current, setCurrent] = useState();
   const [forecast, setForecast] = useState();
-  const whapi = process.env.REACT_APP_API_URL;
-  
+  const whapi = "c63b1454ea50430f84373525243110";
+
 
   const autoApi = `https://api.weatherapi.com/v1/search.json?key=${whapi}&q=`;
   const currentApi = (city) =>
     `https://api.weatherapi.com/v1/forecast.json?key=${whapi}&q=${city}&days=3&aqi=no&alerts=no`;
 
-  useEffect(() => {
-    if (city && city.length > 3) {
-      fetchAutoApi();
-    }
-  }, [city]);
 
-  const fetchAutoApi = async () => {
+  const fetchAutoApi = React.useCallback(async () => {
     try {
       const response = await axios.get(autoApi + city);
       const resp = await response.data;
@@ -33,8 +28,14 @@ function App() {
         return `${data.name} , ${data.region} , ${data.country}`;
       });
       setCityList(cityData);
-    } catch (e) {}
-  };
+    } catch (e) { }
+  }, [autoApi, city]);
+
+  useEffect(() => {
+    if (city && city.length > 3) {
+      fetchAutoApi();
+    }
+  }, [city, fetchAutoApi]);
 
   const fethcCityApi = async (data) => {
     try {
@@ -43,22 +44,31 @@ function App() {
       setCurrent(resp.current);
       setForecast(resp.forecast);
       setLocation(resp.location);
-    } catch {}
+    } catch { }
     setCityList([]);
   };
 
   return (
-    <div className="container bg-primary p-5 ml-5 mt-5" id="new Div">
-      <p className="text-center text-white pb-3">
-        <h1>Weather App</h1>
-      </p>
-      <div className="input-group mb-3 ">
-        <div className="form-floating">
+    <div className="weather-container">
+      {/* Header Section */}
+      <div className="weather-header">
+        <h1>
+          <span style={{ filter: 'none', background: 'none', WebkitTextFillColor: 'initial' }}>🌤️</span>
+          {' '}Weather App
+        </h1>
+      </div>
+
+      {/* Search Section */}
+      <div className="search-container">
+        <div className="search-wrapper">
+          {/* Search Icon */}
+          <span className="search-icon">🔍</span>
+
+          {/* Search Input */}
           <input
             type="text"
-            className="form-control"
-            id="floatingInput"
-            placeholder="Enter city Name"
+            className="search-input"
+            placeholder="Search for a city..."
             onChange={(e) => {
               setCity(e.target.value);
               if (e.target.value === "") {
@@ -68,26 +78,34 @@ function App() {
               }
             }}
           />
-          <label for="floatingInput">Enter City Name</label>
+
+          {/* Autocomplete Dropdown */}
+          {cityList && cityList.length > 0 && (
+            <div className="autocomplete-list">
+              {cityList.map((data, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="autocomplete-item"
+                    onClick={() => fethcCityApi(data)}
+                  >
+                    📍 {data}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
-      {cityList &&
-        cityList.map((data) => {
-          return (
-            <div
-              className="text-center text-white bg-success  border border-danger rounded p-2 bg-opacity-6"
-              style={{ cursor: "pointer" }}
-              onClick={() => fethcCityApi(data)}
-            >
-              {data}
-            </div>
-          );
-        })}
 
+      {/* Current Weather Section */}
       {current && <Current current={current} location={location} />}
+
+      {/* Forecast Section */}
       {forecast && <Forecast forecast={forecast} location={location} />}
     </div>
   );
 }
 
 export default App;
+
